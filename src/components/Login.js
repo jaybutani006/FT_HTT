@@ -58,7 +58,7 @@ const Login = () => {
       <section className="rounded-lg shadow-xl max-w-[80%] p-4 border flex flex-col">
         <h1 className="py-2 text-4xl font-extrabold text-center ">Log In</h1>
         <h1 className="py-2 text-2xl font-bold text-center ">
-          React Firebase Authentication
+          SAS Login / Authentication
         </h1>
         {error && (
           <h2 className="text-red-600 text-center border-2 border-red-600 bg-red-200 px-2 py-1 mt-2 rounded-lg">

@@ -1,0 +1,10 @@
+.inputContainer {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.cardInput {
+    margin-left: 10px;
+    flex: 1;
+}

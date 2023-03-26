@@ -1,6 +1,6 @@
 import React from "react";
 import { useUserAuth } from "../context/UserAuthContextProvider";
-import { useHistory } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
 import { getAuth } from "firebase/auth";
 import { useEffect } from "react";
 const Home = () => {
@@ -48,9 +48,9 @@ const Home = () => {
           You have successfully logged in.
         </h2>
         <div className="px-4 py-2 rounded-lg bg-blue-600 flex justify-center hover:bg-blue-500  ">
-          <button onClick={logOutHandler} className=" text-white">
+          <Link to="/" className=" text-white">
             Log Out
-          </button>
+          </Link>
         </div>
       </section>
     </div>

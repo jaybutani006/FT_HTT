@@ -3,31 +3,56 @@ import { Link } from "react-router-dom";
 import { BsFillEyeFill, BsFillEyeSlashFill } from "react-icons/bs";
 import { useUserAuth } from "../context/UserAuthContextProvider";
 import { useHistory } from "react-router-dom";
+import axios from "axios";
 
 const SignUp = () => {
   const [showPassword, setShowPassword] = useState(false);
-
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [fren, setFren] = useState("");
 
   const { signUp } = useUserAuth();
 
   const history = useHistory();
+  //added
+  // axios.post("http://localhost:2000/api/v1/register");
+  const getLink = (e) => {
+    setFren(e.target.value);
+    // console.log(fren);
+  };
 
+  const register = async (email, password, fren) => {
+    await axios.post(
+          "http://localhost:4500/api/v1/register",
+          {
+            email,
+            password,
+            fren,
+          },
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+            },
+          }
+    )
+  };
   const onSubmitHandler = async (e) => {
     e.preventDefault();
     setError("");
 
+
     try {
       await signUp(email, password);
+      await register(email, password, fren);
       history.push("/");
     } catch (err) {
-      setError(err.message);
+      // setError(err.message);
 
-      setTimeout(() => {
-        setError("");
-      }, 3000);
+      // setTimeout(() => {
+      //   setError("");
+      // }, 3000);
     }
   };
 
@@ -40,7 +65,7 @@ const SignUp = () => {
       <section className="rounded-lg shadow-xl max-w-[80%] p-4 border flex flex-col">
         <h1 className="py-2 text-4xl font-extrabold text-center ">Sign Up</h1>
         <h1 className="py-2 text-2xl font-bold text-center ">
-          React Firebase Authentication
+          SAS Login / Authentication
         </h1>
         {error && (
           <h2 className="text-red-600 text-center  bg-red-200 p-3 mt-2 rounded-lg">
@@ -77,6 +102,27 @@ const SignUp = () => {
               />
             )}
           </div>
+          {/* added code  */}
+
+          <div className="relative w-full lg:max-w-sm">
+            <select
+              id="fren"
+              onChange={getLink}
+              className="w-full p-2.5 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-indigo-600"
+            >
+              <option>Franchise</option>
+              <option>Surat</option>
+              <option>Ahmedabad</option>
+              <option>Pune</option>
+              <option>Rajkot</option>
+              <option>Hyderabad</option>
+              <option>Banglore</option>
+              <option>Chennai</option>
+              <option>Delhi</option>
+              <option>Noida</option>
+            </select>
+          </div>
+          {/* added code  */}
           <div className="px-4 py-2 rounded-lg bg-blue-600 flex justify-center hover:bg-blue-500  ">
             <button type="submit" className=" text-white w-full">
               Sign Up
@@ -86,7 +132,7 @@ const SignUp = () => {
       </section>
       <section className="rounded-lg shadow-xl max-w-[80%] p-4 border flex flex-col">
         <div className="text-base font-bold ">
-          Already have an account ?&nbsp;
+          Already have an account ? 
           <Link to="/" className="text-blue-600 underline">
             LogIn
           </Link>
